@@ -1,8 +1,3 @@
-<template>
-    <input :value="modelValue" @input="updateInput" class="input" type="text">
-</template>
-     
-     
 <script>
 export default{
     name: 'my-input',
@@ -15,9 +10,11 @@ export default{
         }
     }
 }
-    
 </script>
-     
+
+<template>
+    <input :value="modelValue" @input="updateInput" class="input" type="text">
+</template>    
      
 <style scoped>
  .input {
@@ -26,5 +23,4 @@ export default{
     padding: 10px 15px;
     margin-top: 15px;
 }
-
 </style>

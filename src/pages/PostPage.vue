@@ -1,57 +1,8 @@
-<template>
-    <div>
-        <h1>Страница с постами</h1>
-        <my-input
-        v-model="searchQuery"
-        placeholder="Ищееемммм..."
-        />
-        <div class="app__btns">
-            <my-button
-            @click="showDialog"
-            >
-                Создать пост
-            </my-button>
-            <my-select
-            v-model='selectedSort'
-            :options='sortOptions'
-            />
-        </div>
-        <my-dialog v-model:show="dialogVisible">
-    
-            <post-form
-                 @create="createPost"
-            />
-    
-        </my-dialog>
-    
-       <post-list 
-            :posts="sortedandSearchedPosts"
-            @remove="removePost"
-            v-if="!isPostsLoading"
-       /> 
-        <div v-else>Идёт загрузка...</div>
-        <div ref='observer'  class="observer"></div>
-        <!-- <div class="page__wrapper">
-            <div 
-            v-for="pageNumber in totalPages" 
-            :key="pageNumber"
-            class="page"
-            :class="{
-                'current-page': page === pageNumber
-            }"
-            @click="changePage(pageNumber)"
-            >
-                {{ pageNumber }}</div>
-        </div> -->
-    </div>
-    </template>
-    
-    
-    <script>
+<script>
+    import axios from 'axios'
     import PostForm from '@/components/PostForm'
     import PostList from '@/components/PostList'
     import MyButton from '@/components/UI/MyButton'
-    import axios from 'axios'
     import MySelect from '@/components/UI/MySelect'
     import MyInput from '@/components/UI/MyInput'
     
@@ -59,7 +10,6 @@
         components: {
             PostForm, PostList, MyButton, MyInput, MySelect, axios
         },
-    
         data() {
             return {
                posts: [],
@@ -74,13 +24,12 @@
                     {value: 'title', name: 'По названию'},
                     {value: 'body', name: 'По содержимому'},
                 ]
-    
             }
         },
         methods: {
             createPost(post){
-                this.posts.push(post);
-                this.dialogVisible = false;
+                this.posts.push(post)
+                this.dialogVisible = false
             },
             removePost(post){
                 this.posts = this.posts.filter(p => p.id !== post.id) 
@@ -121,18 +70,15 @@
                     });
                     this.totalPages = Math.ceil(response.headers['x-total-count']/this.limit)
                     this.posts = [...this.posts, ...response.data]
-                  
                 } catch(e){
                     alert('ошибка!')
                 }
             }
-          
         },
         mounted(){
             this.fetchPosts();
             console.log(this.$refs.observer)
             const options = {
-           
             rootMargin: "0px",
             threshold: 1.0,
             };
@@ -141,7 +87,7 @@
                     this.loadMorePosts()
                 }
             };
-            const observer = new IntersectionObserver(callback, options);
+            const observer = new IntersectionObserver(callback, options)
             observer.observe(this.$refs.observer)
         },
         computed: {
@@ -156,17 +102,66 @@
         //     page(){
         //         this.fetchPosts()
         //     }
-           
         }
     }
+</script>
+
+<template>
+    <div>
+        <h1>Страница с постами</h1>
+        <my-input
+            v-model="searchQuery"
+            placeholder="Ищееемммм..."
+        />
+
+        <div class="app__btns">
+            <my-button
+                @click="showDialog"
+            >
+                Создать пост
+            </my-button>
+            <my-select
+                v-model='selectedSort'
+                :options='sortOptions'
+            />
+        </div>
+
+        <my-dialog v-model:show="dialogVisible">
     
-    </script>
+            <post-form
+                 @create="createPost"
+            />
+    
+        </my-dialog>
+    
+       <post-list 
+            :posts="sortedandSearchedPosts"
+            @remove="removePost"
+            v-if="!isPostsLoading"
+       /> 
+
+        <div v-else>Идёт загрузка...</div>
+
+        <div ref='observer'  class="observer"></div>
+        <!-- <div class="page__wrapper">
+            <div 
+            v-for="pageNumber in totalPages" 
+            :key="pageNumber"
+            class="page"
+            :class="{
+                'current-page': page === pageNumber
+            }"
+            @click="changePage(pageNumber)"
+            >
+                {{ pageNumber }}</div>
+        </div> -->
+    </div>
+</template>
     
     
+
     
-    <style>
-   
-    
+<style> 
     .app__btns {
         margin: 15px 0;
         display: flex;
@@ -174,8 +169,8 @@
     }
     
     .page__wrapper{
-    display: flex;
-    margin-top: 15px;
+        display: flex;
+        margin-top: 15px;
     }
     
     .page{
@@ -191,5 +186,4 @@
         height: 30px;
         background: rgb(144, 144, 219);
     }
-    
-    </style>
+</style>
