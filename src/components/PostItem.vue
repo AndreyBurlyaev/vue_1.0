@@ -24,12 +24,12 @@
 
         <div class="post__btns">
             <my-button
-                @click="$router.push(`/posts/${post.id}`)"
+                @click="openPost(post)"
                 >Открыть
             </my-button>
 
             <my-button
-                @click="$emit('remove', post)"
+                @click="$emit('remove', post.id)"
                 >Удалить
             </my-button>
         </div>
