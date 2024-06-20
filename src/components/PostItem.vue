@@ -45,5 +45,10 @@
         align-items: center;
         justify-content: space-between;
         border-radius: 12px;
-}
+    }
+
+    .post__btns{
+        display: flex;
+        gap: 10px
+    }
 </style>
