@@ -1,5 +1,5 @@
 <script>
-export default {
+    export default {
     data(){
         return {
             post: {
@@ -22,10 +22,10 @@ export default {
 </script>
 
 <template>
- <form @submit.prevent>
-    <h4>Создание поста</h4>
+    <form @submit.prevent>
+        <h4>Создание поста</h4>
+
         <my-input 
-            v-focus
             v-model="post.title" 
             type="text" 
             placeholder="Название"
@@ -47,5 +47,5 @@ export default {
     form {
         display: flex;
         flex-direction: column;
-    }
+}
 </style>
