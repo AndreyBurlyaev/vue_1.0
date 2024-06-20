@@ -1,27 +1,29 @@
-<template>
-  <button class="btn">
-<slot></slot>
+<script>
+   export default {
+   name: 'my-button',
+   inheritAttrs: false
+   }
+</script>
 
+<template>
+  <button v-bind='$attrs' class="btn">
+    <slot></slot>
   </button>
 </template>
    
-   
-   <script>
-   export default {
-   name: 'my-button'
-   }
-   
-   </script>
-   
-   
-   <style scoped>
-    .btn {
-    /* margin-top: 15px;
-    margin-top: 15px; */
+<style>
+  .btn {
     padding: 10px 15px;
     background: none;
-    color: rgb(28, 82, 82);
+    color: black;
     border: 3px solid rgb(93, 210, 210);
     border-radius: 12px;
-}
-   </style>
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: rgb(177, 234, 234);
+  }
+</style>
